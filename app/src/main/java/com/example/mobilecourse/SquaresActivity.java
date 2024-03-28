@@ -15,7 +15,7 @@ public class SquaresActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_sum_of_numbers);
         //Animations();
         SumOfNumbers();
     }
@@ -37,41 +37,20 @@ public class SquaresActivity extends AppCompatActivity {
     }
 
     protected void SumOfNumbers() {
-        setContentView(R.layout.activity_sum_of_numbers);
-
-        EditText editText1 = findViewById(R.id.editText1);
-        EditText editText2 = findViewById(R.id.editText2);
-
-        Button confirmButton = findViewById(R.id.confirmButton);
-        Button cancelButton = findViewById(R.id.cancelButton);
-
+        Button confirmButton = findViewById(R.id.openDialogButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number1String = editText1.getText().toString();
-                String number2String = editText2.getText().toString();
-
-                if (!number1String.isEmpty() && !number2String.isEmpty()) {
-                    int number1 = Integer.parseInt(number1String);
-                    int number2 = Integer.parseInt(number2String);
-                    int sum = number1 + number2;
-
-                    Toast.makeText(SquaresActivity.this, "Сумма чисел: " + sum, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SquaresActivity.this, "Введите оба числа", Toast.LENGTH_SHORT).show();
-                }
+                DialogForSum dialog = new DialogForSum();
+                dialog.show(getSupportFragmentManager(), "custom dialog");
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editText1.setText("");
-                editText2.setText("");
+    }
 
-                Toast.makeText(SquaresActivity.this, "Очищено", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void processNumbers(String firstNumber, String secondNumber) {
+        int sum = Integer.parseInt(firstNumber) + Integer.parseInt(secondNumber);
+        Toast.makeText(this, "Sum: " + sum, Toast.LENGTH_SHORT).show();
     }
 }
 
